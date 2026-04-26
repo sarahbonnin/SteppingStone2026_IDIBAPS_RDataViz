@@ -25,15 +25,6 @@ gse_annot_simple <- gse_annot %>%
 
 readr::write_csv(gse_annot_simple, "GSE277039/metadata.csv") 
 
-
-# loaded log-norm file manually
-logn <- readr::read_table("GSE277039/log2_normalized_counts.txt.gz")
-
-# filter
-logn_filter <- logn[rowMeans(logn[,-1]) > 2,] # 18649 genes
-
-readr::write_csv(logn_filter, "GSE277039/log2_normalized_counts.csv")
-
 # Read in raw counts
 raw <- read.table("GSE277039/GSE277039_raw_counts.txt.gz", header = T, row.names = 1)
 
@@ -48,7 +39,7 @@ dds <- DESeqDataSetFromMatrix(countData = raw, colData = meta, design = ~ group)
 
 # filter
 smallestGroupSize <- min(table(meta$group))
-keep <- rowSums(counts(dds) >= 10) >= smallestGroupSize
+keep <- rowSums(counts(dds) >= 25) >= smallestGroupSize
 dds <- dds[keep,]
 
 
@@ -74,8 +65,8 @@ colSums(counts(dds, normalized=T))
 plotDispEsts(dds)
 
 
-res1 <- results(dds, contrast=c("group", "KO_stim", "KO_bas"))
-summary(res1, alpha=0.05)
+#res1 <- results(dds, contrast=c("group", "KO_stim", "KO_bas"))
+#summary(res1, alpha=0.05)
 
 res2 <- results(dds, contrast=c("group", "KO_bas", "WT_bas"))
 summary(res2, alpha=0.05)
@@ -91,7 +82,7 @@ res2_sel <- as.data.frame(res2) %>%
 # write to file
 readr::write_csv(res2_sel, "GSE277039/KO_vs_WT_stats.csv")
 
-norm_counts <- counts(dds, normalized=TRUE)
+norm_counts <- log2(counts(dds, normalized=TRUE)+1)
 # 19205 genes
 
 # select only genes that were kept in res2_sel
@@ -100,12 +91,26 @@ norm_counts <- norm_counts[rownames(norm_counts) %in% rownames(res2_sel),]
 # select only KO_bas and WT_base samples, and rename columns to simplify dataset
 norm_counts <- as.data.frame(norm_counts) %>% 
   dplyr::select(ends_with("bas")) %>%
-  rename_with(~str_remove(., '_bas'))
+  rename_with(~str_remove(., '_bas')) %>%
+  tibble::rownames_to_column("GeneSymbol")
   
 # save counts
 readr::write_csv(norm_counts, "GSE277039/counts.csv")
 
+# Put together counts and DEA into a single file
+counts_de <- merge(res2_sel, norm_counts, by="GeneSymbol")
 
+readr::write_csv(counts_de, "GSE277039/DEG_counts.csv")
 
+# also write to Excel for the read Excel example
+readr::write_excel_csv(counts_de, "GSE277039/DEG_counts.xlsx")
+
+# Write smaller random file for the first plots
+set.seed(11)
+
+sample_de <- counts_de[sample(1:nrow(counts_de))[1:50],]
+
+readr::write_csv(sample_de, "GSE277039/DEG_counts_sample.csv")
+readr::write_excel_csv(sample_de, "GSE277039/DEG_counts-sample.xlsx")
 
 

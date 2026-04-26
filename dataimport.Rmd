@@ -4,30 +4,29 @@ In this section, we will learn how to **import the content of a file** in R usin
 
 ## Fetch workshop files
 
-Let's copy locally a few files prepared for this workshop.
+### Download files from GitHub repository
 
-* Go to: <a href="https://github.com/sarahbonnin/DataViz_source_files" target="_blank">https://github.com/sarahbonnin/DataViz_source_files</a>
+We will copy locally a few files prepared for the workshop. Please copy-paste the following block of commands in the R console:
 
-* Download the ZIP archive, as follows:
+```{r, echo =T, eval=F}
+# list of files to download
+ls_files <- c("DEG_counts.csv", "DEG_counts_sample.csv", "metadata.csv")
 
-Click on <img src="images/import_github_code_button.png" alt="import zip" width="90"/> -> Download ZIP:
+# create local directory where files will be stored
+local_dir <- "GSE277039"
+dir.create(local_dir, showWarnings = F)
+
+# loop through the list of files to download them locally
+for(i in ls_files){
+  download.file(file.path("https://raw.githubusercontent.com/sarahbonnin/SteppingStone2026_IDIBAPS_RDataViz/master/GSE277039/", i), file.path(local_dir, i))
+}
+
+```
 
 
-<img src="images/import_github_zip.png" alt="import zip" width="600"/>
+### Data file description
 
-* Save the archive in the course folder (**DataViz_R**)
-
-* Extract the archive (click right on the archive and you should see some extraction options).
-
-What is extracted from the archive is the **DataViz_source_files-main** folder, which in turns contains a **files** folder: this contains the files we need for the course.
-
-The **path** to fetch the files is the following (remember that the first piece is *OS/user* dependent):
-
-*/your_home_directory/*DataViz_R/**DataViz_source_files-main/files**
-
-e.g.
-
-/users/sbonnin/DataViz_R/**DataViz_source_files-main/files**
+TBU
 
 ## Import / read in data
 
@@ -43,6 +42,7 @@ From the R console:
 library(readr)
 ```
 
+
 ### from CSV
 
 Let's now import the content of a first file in our environment.
@@ -53,19 +53,19 @@ There are several ways we can specify the path / location of a file:
 
 ```{r, echo=T, eval=F, message=F, warning=F}
 # absolute path
-geneexp <- read_csv(file="~/Documents/DataViz_R/DataViz_source_files-main/files/expression_20genes.csv")
+geneexp <- read_csv(file="~/DataViz_R/GSE277039/DEG_counts_sample.csv")
 ```
 
 * Using the "relative path" (i.e. relative to where the session and R project are currently located), e.g.:
 
 ```{r, echo=T, eval=T, message=F, warning=F}
 # relative path (this assumes you are in the course folder)
-geneexp <- read_csv(file="DataViz_source_files-main/files/expression_20genes.csv")
+geneexp <- read_csv(file="GSE277039/DEG_counts_sample.csv")
 ```
 
 Because your **working directory** is **DataViz_R**, R can find the **DataViz_source_files-main** without needing the full path (**relative vs absolute path**).
 
-The content of file **expression_20genes.csv** is now stored in the object named **geneexp**.
+The content of file **counts.csv** is now stored in the object named **geneexp**.
 
 The function also outputs some information about the data you are importing:
 
@@ -73,10 +73,10 @@ The function also outputs some information about the data you are importing:
 
 Such as that:
 
-* The data contains 20 rows (observations), and 4 columns (variables).
-* Out of these 4 columns:
-  * 2 contain characters (<span style="color: red;">chr</span>): **Gene** and **DE**.
-  * 2 contain numbers (<span style="color: green;">dbl</span> for "double"): **sample1** and **sample2**
+* The data contains 100 rows (observations), and 17 columns (variables).
+* Out of these 17 columns:
+  * 2 contain characters (<span style="color: red;">chr</span>): **GeneSymbol** and **DE**.
+  * 15 contain numbers (<span style="color: green;">dbl</span> for "double"), inclduing **log2FoldChange**, **padj**, **WT1**.
 
 Notes:
 
@@ -96,14 +96,14 @@ First, load the {readxl} package (bottom-right panel -> Packages -> search and t
 ```{r}
 library(readxl)
 # Relative path:
-read_excel(path="DataViz_source_files-main/files/expression_20genes.xlsx")
+read_excel(path="GSE277039/DEG_counts_sample.xlsx")
 ```
 
 If your Excel file contains multiple sheets, you can specify the sheet name using the **sheet=** parameter:
 
 ```{r}
-read_excel(path="DataViz_source_files-main/files/expression_20genes.xlsx",
-           sheet="tab1")
+read_excel(path="GSE277039/DEG_counts_sample.xlsx",
+           sheet="DEG_counts")
 ```
 
 **Note: parameters in a function are comma-separated**:

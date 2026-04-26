@@ -52,12 +52,12 @@ We can add **more layers and components** to this base structure to customize th
 
 ### Base plot
 
-We can start from the **geneexp** object, that contains data from *expression_20genes.csv*: we will represent **sample1** on the x axis and **sample2** on the y axis.
+We can start from the **geneexp** object, that contains data from *expression_20genes.csv*: we will represent **WT1** on the x axis and **WT2** on the y axis.
 
 The base layer is built as follows (Copy-paste this in the console, and hit Enter):
 
 ```{r, eval=T}
-ggplot(data=geneexp, mapping=aes(x=sample1, y=sample2))
+ggplot(data=geneexp, mapping=aes(x=WT1, y=WT2))
 ```
 
 As you can see, nothing is plotted yet, but the base is set.
@@ -67,7 +67,7 @@ We then add a geometrics **geom_point()** to the base layer: this **tells ggplot
 ```{r, eval=T}
 # This line is a comment: a comment is not interpreted by R.
 # Example of a scatter plot: add the geom_point() layer
-ggplot(data=geneexp, mapping=aes(x=sample1, y=sample2)) + 
+ggplot(data=geneexp, mapping=aes(x=WT1, y=WT2)) + 
   geom_point()
 
 # Note that the new line is NOT necessary after the "+": it is done for clarity / readability.
@@ -84,14 +84,14 @@ Your plot should appear in the "Plots" tab in the bottom-right panel.
 Color all points in red:
 
 ```{r}
-ggplot(data=geneexp, mapping=aes(x=sample1, y=sample2)) + 
+ggplot(data=geneexp, mapping=aes(x=WT1, y=WT2)) + 
   geom_point(color="red")
 ```
 
 Increase point size (default size is 1.5):
 
 ```{r}
-ggplot(data=geneexp, mapping=aes(x=sample1, y=sample2)) + 
+ggplot(data=geneexp, mapping=aes(x=WT1, y=WT2)) + 
   geom_point(color="red", size=2.5)
 ```
 
@@ -111,7 +111,7 @@ Back to our customization: we can change the point shape by setting the **shape*
 Points can become, for example, triangles:
 
 ```{r}
-ggplot(data=geneexp, mapping=aes(x=sample1, y=sample2)) + 
+ggplot(data=geneexp, mapping=aes(x=WT1, y=WT2)) + 
   geom_point(color="red", size=2.5, shape="triangle")
 ```
 
@@ -124,7 +124,7 @@ See more options in the following image:
 Note that you can also replace the points by any character, the following way:
 
 ```{r}
-ggplot(data=geneexp, mapping=aes(x=sample1, y=sample2)) + 
+ggplot(data=geneexp, mapping=aes(x=WT1, y=WT2)) + 
   geom_point(color="red", size=2.5, shape="$")
 ```
 
@@ -137,7 +137,7 @@ We can add more **layers** to the plot, using the same structure (**+ layer_name
 Add a title using the **ggtitle()** layer:
 
 ```{r}
-ggplot(data=geneexp, mapping=aes(x=sample1, y=sample2)) + 
+ggplot(data=geneexp, mapping=aes(x=WT1, y=WT2)) + 
   geom_point(color="red", size=2.5, shape="diamond") +
   ggtitle(label="my first ggplot")
 ```
@@ -154,28 +154,28 @@ This is the default "theme", but there are [more options](https://ggplot2.tidyve
 Examples:
 
 ```{r}
-ggplot(data=geneexp, mapping=aes(x=sample1, y=sample2)) + 
+ggplot(data=geneexp, mapping=aes(x=WT1, y=WT2)) + 
   geom_point(color="red", size=2.5, shape="diamond") +
   ggtitle(label="theme grey (the default theme)") +
   theme_grey()
 ```
 
 ```{r}
-ggplot(data=geneexp, mapping=aes(x=sample1, y=sample2)) + 
+ggplot(data=geneexp, mapping=aes(x=WT1, y=WT2)) + 
   geom_point(color="red", size=2.5, shape="diamond") +
   ggtitle(label="theme linedraw") +
   theme_linedraw()
 ```
 
 ```{r}
-ggplot(data=geneexp, mapping=aes(x=sample1, y=sample2)) + 
+ggplot(data=geneexp, mapping=aes(x=WT1, y=WT2)) + 
   geom_point(color="red", size=2.5, shape="diamond") +
   ggtitle(label="theme bw = black and white") +
   theme_bw()
 ```
 
 ```{r}
-ggplot(data=geneexp, mapping=aes(x=sample1, y=sample2)) + 
+ggplot(data=geneexp, mapping=aes(x=WT1, y=WT2)) + 
   geom_point(color="red", size=2.5, shape="diamond") +
   ggtitle(label="theme void") +
   theme_void()
@@ -194,7 +194,7 @@ You can also change some settings globally as you use a new theme, e.g.
 
 ```{r}
 # get full list of available fonts in your system with: 
-ggplot(data=geneexp, mapping=aes(x=sample1, y=sample2)) + 
+ggplot(data=geneexp, mapping=aes(x=WT1, y=WT2)) + 
   geom_point(color="red", size=2.5, shape="diamond") +
   ggtitle(label="my first ggplot") +
   theme_bw(base_size=18, base_family = "Laksaman", base_line_size = 2, base_rect_size = 4)
@@ -229,7 +229,7 @@ The best way to save a plot to a few from the console, is using the ggsave funct
 First, you need to save the plot to an object (if you don't, ggplot will create a file from the latest plot, which is fine too!).
 
 ```{r}
-myplot <- ggplot(data=geneexp, mapping=aes(x=sample1, y=sample2)) + 
+myplot <- ggplot(data=geneexp, mapping=aes(x=WT1, y=WT2)) + 
   geom_point(color="red", size=2.5, shape="diamond") +
   ggtitle(label="my first ggplot")
 ```
@@ -277,7 +277,7 @@ Time for our first exercise!
 
 Starting from the same object **geneexp**:
 
-1. Create a scatter plot of sample2 (x-axis) versus sample1 (y-axis).
+1. Create a scatter plot of WT2 (x-axis) versus WT1 (y-axis).
 
 <details>
 <summary>
@@ -285,7 +285,7 @@ correction
 </summary>
 
 ```{r}
-ggplot(data=geneexp, mapping=aes(x=sample2, y=sample1)) + 
+ggplot(data=geneexp, mapping=aes(x=WT2, y=WT1)) + 
   geom_point()
 ```
 
@@ -300,7 +300,7 @@ correction
 </summary>
 
 ```{r}
-ggplot(data=geneexp, mapping=aes(x=sample1, y=sample2)) + 
+ggplot(data=geneexp, mapping=aes(x=WT1, y=WT2)) + 
   geom_point(color="blue", size=2)
 ```
 
@@ -315,7 +315,7 @@ correction
 </summary>
 
 ```{r}
-ggplot(data=geneexp, mapping=aes(x=sample1, y=sample2)) + 
+ggplot(data=geneexp, mapping=aes(x=WT1, y=WT2)) + 
   geom_point(color="blue", size=2, shape="square cross")
 ```
 
@@ -330,7 +330,7 @@ correction
 </summary>
 
 ```{r}
-ggplot(data=geneexp, mapping=aes(x=sample1, y=sample2)) + 
+ggplot(data=geneexp, mapping=aes(x=WT1, y=WT2)) + 
   geom_point(color="blue", size=2, shape="square cross") +
   ggtitle(label="my second ggplot")
 ```
@@ -346,7 +346,7 @@ correction
 </summary>
 
 ```{r}
-ggplot(data=geneexp, mapping=aes(x=sample1, y=sample2)) + 
+ggplot(data=geneexp, mapping=aes(x=WT1, y=WT2)) + 
   geom_point(color="blue", size=2, shape="square cross") +
   ggtitle(label="my second ggplot", subtitle="nice blue squares")
 ```
@@ -369,7 +369,7 @@ From the console:
 
 ```{r}
 # first, save in an object
-mybluescatterplot <- ggplot(data=geneexp, mapping=aes(x=sample1, y=sample2)) + 
+mybluescatterplot <- ggplot(data=geneexp, mapping=aes(x=WT1, y=WT2)) + 
   geom_point(color="blue", size=2, shape="square cross") +
   ggtitle(label="my second ggplot", subtitle="nice blue squares")
 
@@ -395,7 +395,7 @@ Two steps:
 * add the **geom_text()** layer, to display the labels
 
 ```{r}
-ggplot(data=geneexp, mapping=aes(x=sample1, y=sample2, label=Gene)) + 
+ggplot(data=geneexp, mapping=aes(x=WT1, y=WT2, label=GeneSymbol)) + 
   geom_point() +
   geom_text()
 ```
@@ -403,7 +403,7 @@ ggplot(data=geneexp, mapping=aes(x=sample1, y=sample2, label=Gene)) +
 We can decrease or increase label size:
 
 ```{r}
-ggplot(data=geneexp, mapping=aes(x=sample1, y=sample2, label=Gene)) + 
+ggplot(data=geneexp, mapping=aes(x=WT1, y=WT2, label=GeneSymbol)) + 
   geom_point() +
   geom_text(size=3)
 ```
@@ -412,7 +412,7 @@ ggplot(data=geneexp, mapping=aes(x=sample1, y=sample2, label=Gene)) +
 We can adjust the position of the labels relative to the points, so they do not overlap, with **nudge_x** (moves the labels horizontally / on the **x** axis).
 
 ```{r}
-ggplot(data=geneexp, mapping=aes(x=sample1, y=sample2, label=Gene)) + 
+ggplot(data=geneexp, mapping=aes(x=WT1, y=WT2, label=GeneSymbol)) + 
   geom_point() +
   geom_text(size=3, nudge_x=1.5)
 ```
@@ -423,7 +423,7 @@ ggplot(data=geneexp, mapping=aes(x=sample1, y=sample2, label=Gene)) +
 You can overrule the mapping of colors to labels and keep all labels black, for example:
 
 ```{r}
-ggplot(data=geneexp, mapping=aes(x=sample1, y=sample2, label=Gene)) + 
+ggplot(data=geneexp, mapping=aes(x=WT1, y=WT2, label=Gene)) + 
   geom_point() +
   geom_text(nudge_x=1.5, size=3, color="black")
 ```
@@ -439,9 +439,17 @@ library(ggrepel)
 ```
 
 ```{r}
-ggplot(data=geneexp, mapping=aes(x=sample1, y=sample2, label=Gene)) + 
+ggplot(data=geneexp, mapping=aes(x=WT1, y=WT2, label=GeneSymbol)) + 
   geom_point() +
   geom_text_repel()
+```
+
+The warning related to the number of labels / overlaps the function will display by default. You can increase it with `max.overlaps`
+
+```{r}
+ggplot(data=geneexp, mapping=aes(x=WT1, y=WT2, label=GeneSymbol)) + 
+  geom_point() +
+  geom_text_repel(max.overlaps = 100)
 ```
 
 ### Color and shape mapping
@@ -455,7 +463,7 @@ Columns used to **conditionally color or shape the points** are set inside the *
 Conditional **shape**:
 
 ```{r, fig.width=7}
-ggplot(data=geneexp, mapping=aes(x=sample1, y=sample2, label=Gene, shape=DE)) + 
+ggplot(data=geneexp, mapping=aes(x=WT1, y=WT2, label=Gene, shape=DE)) + 
   geom_point() +
   geom_text(nudge_x=1.2, size=3)
 ```
@@ -463,7 +471,7 @@ ggplot(data=geneexp, mapping=aes(x=sample1, y=sample2, label=Gene, shape=DE)) +
 Conditional **color**:
 
 ```{r, fig.width=7}
-ggplot(data=geneexp, mapping=aes(x=sample1, y=sample2, label=Gene, color=DE)) + 
+ggplot(data=geneexp, mapping=aes(x=WT1, y=WT2, label=Gene, color=DE)) + 
   geom_point() +
   geom_text(nudge_x=1.2, size=3)
 ```
@@ -471,7 +479,7 @@ ggplot(data=geneexp, mapping=aes(x=sample1, y=sample2, label=Gene, color=DE)) +
 TIP: remove the double labeling in the legend (a letter behind the point because both labels and colors are mapped to the same variable): set **show.legend=FALSE** in **geom_text()**:
 
 ```{r, fig.width=7}
-ggplot(data=geneexp, mapping=aes(x=sample1, y=sample2, label=Gene, color=DE)) + 
+ggplot(data=geneexp, mapping=aes(x=WT1, y=WT2, label=Gene, color=DE)) + 
   geom_point() +
   geom_text(nudge_x=1.2, size=3, show.legend=FALSE)
 ```
@@ -479,7 +487,7 @@ ggplot(data=geneexp, mapping=aes(x=sample1, y=sample2, label=Gene, color=DE)) +
 You can change the legend title with layer **scale_color_discrete**:
 
 ```{r, fig.width=7}
-ggplot(data=geneexp, mapping=aes(x=sample1, y=sample2, label=Gene, color=DE)) + 
+ggplot(data=geneexp, mapping=aes(x=WT1, y=WT2, label=Gene, color=DE)) + 
   geom_point() +
   geom_text(nudge_x=1.2, size=3, show.legend=FALSE) +
   scale_color_discrete(name="DiffExp")
@@ -494,7 +502,7 @@ ggplot(data=geneexp, mapping=aes(x=sample1, y=sample2, label=Gene, color=DE)) +
 Colors can be set manually using (yet another) layer: **scale_color_manual()**.
 
 ```{r, fig.width=7}
-ggplot(data=geneexp, mapping=aes(x=sample1, y=sample2, label=Gene, color=DE)) + 
+ggplot(data=geneexp, mapping=aes(x=WT1, y=WT2, label=Gene, color=DE)) + 
   geom_point() +
   geom_text(nudge_x=1.2, size=3) +
   scale_color_manual(values=c(Down="blue", No="black", Up="red"))
@@ -507,7 +515,7 @@ ggplot(data=geneexp, mapping=aes(x=sample1, y=sample2, label=Gene, color=DE)) +
 **geom_rug** creates a compact visualization along the axes to help read the information of individual cases. You can simply add it as an additional layer.
 
 ```{r}
-ggplot(data=geneexp, mapping=aes(x=sample1, y=sample2)) + 
+ggplot(data=geneexp, mapping=aes(x=WT1, y=WT2)) + 
   geom_point(color="red", size=2.5, shape="diamond") +
   ggtitle(label="my first ggplot") +
   theme_linedraw() +
@@ -521,7 +529,7 @@ As usual, you can customize several parameters, such as:
 * *linewidth*, *linetype*
 
 ```{r}
-ggplot(data=geneexp, mapping=aes(x=sample1, y=sample2)) + 
+ggplot(data=geneexp, mapping=aes(x=WT1, y=WT2)) + 
   geom_point(color="red", size=2.5, shape="diamond") +
   ggtitle(label="my first ggplot") +
   theme_linedraw() +
@@ -533,7 +541,7 @@ ggplot(data=geneexp, mapping=aes(x=sample1, y=sample2)) +
 **geom_density_2d** performs a 2D kernel density estimation and displays the results with contours.
 
 ```{r}
-ggplot(data=geneexp, mapping=aes(x=sample1, y=sample2)) + 
+ggplot(data=geneexp, mapping=aes(x=WT1, y=WT2)) + 
   geom_point(color="red", size=2.5, shape="diamond") +
   ggtitle(label="my first ggplot") +
   theme_linedraw() +
@@ -543,7 +551,7 @@ ggplot(data=geneexp, mapping=aes(x=sample1, y=sample2)) +
 Play with some of the parameters we already know:
 
 ```{r}
-ggplot(data=geneexp, mapping=aes(x=sample1, y=sample2)) + 
+ggplot(data=geneexp, mapping=aes(x=WT1, y=WT2)) + 
   geom_point(color="red", size=2.5, shape="diamond") +
   ggtitle(label="my first ggplot") +
   theme_linedraw() +
@@ -556,7 +564,7 @@ ggplot(data=geneexp, mapping=aes(x=sample1, y=sample2)) +
 Add a regression line with **geom_smooth()**. A smoothed line can help highlight the dominant pattern/trend.
 
 ```{r}
-ggplot(data=geneexp, mapping=aes(x=sample1, y=sample2)) + 
+ggplot(data=geneexp, mapping=aes(x=WT1, y=WT2)) + 
   geom_point(color="red", size=2.5, shape="diamond") +
   ggtitle(label="my first ggplot") +
   theme_linedraw() +
@@ -566,7 +574,7 @@ ggplot(data=geneexp, mapping=aes(x=sample1, y=sample2)) +
 Remove the confidence interval:
 
 ```{r}
-ggplot(data=geneexp, mapping=aes(x=sample1, y=sample2)) + 
+ggplot(data=geneexp, mapping=aes(x=WT1, y=WT2)) + 
   geom_point(color="red", size=2.5, shape="diamond") +
   ggtitle(label="my first ggplot") +
   theme_linedraw() +
@@ -584,7 +592,7 @@ Different methods can be used to fit the smoothing line:
 By default, the smoothing method is picked based on the size of the largest group across all panels.
 
 ```{r}
-ggplot(data=geneexp, mapping=aes(x=sample1, y=sample2)) + 
+ggplot(data=geneexp, mapping=aes(x=WT1, y=WT2)) + 
   geom_point(color="red", size=2.5, shape="diamond") +
   ggtitle(label="my first ggplot") +
   theme_linedraw() +
@@ -599,7 +607,7 @@ ggplot(data=geneexp, mapping=aes(x=sample1, y=sample2)) +
 You can add the correlation coefficient between the 2 variables, using another function from the {ggpubr} package:
 
 ```{r}
-ggplot(data=geneexp, mapping=aes(x=sample1, y=sample2)) + 
+ggplot(data=geneexp, mapping=aes(x=WT1, y=WT2)) + 
   geom_point(color="red", size=2.5, shape="diamond") +
   ggtitle(label="my first ggplot") +
   theme_linedraw() +
@@ -1027,7 +1035,7 @@ We will illustrate how to make some changes using **theme()** layer on our first
 * Change **overall** font size:
 
 ```{r}
-ggplot(data=geneexp, mapping=aes(x=sample1, y=sample2)) + 
+ggplot(data=geneexp, mapping=aes(x=WT1, y=WT2)) + 
   geom_point() +
   ggtitle("scatter plot") +
   theme(text = element_text(size = 20))
@@ -1036,7 +1044,7 @@ ggplot(data=geneexp, mapping=aes(x=sample1, y=sample2)) +
 * Change font size of **axis text**:
 
 ```{r}
-ggplot(data=geneexp, mapping=aes(x=sample1, y=sample2)) + 
+ggplot(data=geneexp, mapping=aes(x=WT1, y=WT2)) + 
   geom_point() +
   ggtitle("scatter plot") +
   theme(axis.text = element_text(size = 20))
@@ -1045,7 +1053,7 @@ ggplot(data=geneexp, mapping=aes(x=sample1, y=sample2)) +
 * Change font size of **axis titles**:
 
 ```{r}
-ggplot(data=geneexp, mapping=aes(x=sample1, y=sample2)) + 
+ggplot(data=geneexp, mapping=aes(x=WT1, y=WT2)) + 
   geom_point() +
   ggtitle("scatter plot") +
   theme(axis.title = element_text(size = 20))
@@ -1054,7 +1062,7 @@ ggplot(data=geneexp, mapping=aes(x=sample1, y=sample2)) +
 * **Remove axis titles** (e.g. below: removing x-axis title):
 
 ```{r}
-ggplot(data=geneexp, mapping=aes(x=sample1, y=sample2)) + 
+ggplot(data=geneexp, mapping=aes(x=WT1, y=WT2)) + 
   geom_point() +
   ggtitle("scatter plot") +
   theme(axis.title.x = element_blank())
@@ -1063,7 +1071,7 @@ ggplot(data=geneexp, mapping=aes(x=sample1, y=sample2)) +
 * **Shift** the graph title to the right (it is by default centered to the left):
 
 ```{r}
-ggplot(data=geneexp, mapping=aes(x=sample1, y=sample2)) + 
+ggplot(data=geneexp, mapping=aes(x=WT1, y=WT2)) + 
   geom_point() +
   ggtitle("scatter plot") +
   theme(plot.title = element_text(hjust = 0.5))
@@ -1072,7 +1080,7 @@ ggplot(data=geneexp, mapping=aes(x=sample1, y=sample2)) +
 * Change font size of the **graph title**:
 
 ```{r}
-ggplot(data=geneexp, mapping=aes(x=sample1, y=sample2)) + 
+ggplot(data=geneexp, mapping=aes(x=WT1, y=WT2)) + 
   geom_point() +
   ggtitle("scatter plot") +
   theme(plot.title = element_text(size = 20, hjust = 0.5))
@@ -1081,7 +1089,7 @@ ggplot(data=geneexp, mapping=aes(x=sample1, y=sample2)) +
 * Change the **color of the title**, and make it **bold**:
 
 ```{r}
-ggplot(data=geneexp, mapping=aes(x=sample1, y=sample2)) + 
+ggplot(data=geneexp, mapping=aes(x=WT1, y=WT2)) + 
   geom_point() +
   ggtitle("scatter plot") +
   theme(plot.title = element_text(size = 20, hjust = 0.5, face = "bold", colour = "blue"))
@@ -1090,7 +1098,7 @@ ggplot(data=geneexp, mapping=aes(x=sample1, y=sample2)) +
 * You can also use theme() to **rotate the x-axis label** of plots, for example:
 
 ```{r}
-ggplot(data=geneexp, mapping=aes(x=sample1, y=sample2)) + 
+ggplot(data=geneexp, mapping=aes(x=WT1, y=WT2)) + 
   geom_point() +
   ggtitle("scatter plot") +
   theme(axis.text.x = element_text(angle=90))
@@ -1101,7 +1109,7 @@ ggplot(data=geneexp, mapping=aes(x=sample1, y=sample2)) +
 **Colored background:**
 
 ```{r}
-ggplot(data=geneexp, mapping=aes(x=sample1, y=sample2, color=DE)) + 
+ggplot(data=geneexp, mapping=aes(x=WT1, y=WT2, color=DE)) + 
   geom_point() +
   theme(legend.background = element_rect(fill="yellow"))
 ```
@@ -1109,7 +1117,7 @@ ggplot(data=geneexp, mapping=aes(x=sample1, y=sample2, color=DE)) +
 **Decrease or increase the space between the legend box and the plot:**
 
 ```{r}
-ggplot(data=geneexp, mapping=aes(x=sample1, y=sample2, color=DE)) + 
+ggplot(data=geneexp, mapping=aes(x=WT1, y=WT2, color=DE)) + 
   geom_point() +
   theme(legend.box.spacing = unit(3, "cm")) # default is 0.4cm
 ```
@@ -1117,7 +1125,7 @@ ggplot(data=geneexp, mapping=aes(x=sample1, y=sample2, color=DE)) +
 Remove the **key background**:
 
 ```{r}
-ggplot(data=geneexp, mapping=aes(x=sample1, y=sample2, color=DE)) + 
+ggplot(data=geneexp, mapping=aes(x=WT1, y=WT2, color=DE)) + 
   geom_point() +
   theme(legend.key = element_blank())
 ```
@@ -1255,7 +1263,7 @@ ggplot(data=gtf, mapping=aes(x=chr, fill=gene_type)) +
 Example of a scale for continuous data:
 
 ```{r}
- ggplot(data=geneexp, mapping=aes(x=sample1, y=sample2, color=sample1)) + 
+ ggplot(data=geneexp, mapping=aes(x=WT1, y=WT2, color=WT1)) + 
   geom_point() + scale_color_gsea()
 
 ```
