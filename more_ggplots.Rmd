@@ -1,0 +1,175 @@
+# More ggplots
+
+## Histograms and density plots
+
+Histograms and density plots are both visualizations of the distribution of quantitative variables.
+
+### Histogram
+
+We will use a previous object to create a histogram, with **geom_histogram**. You can get it back with:
+
+```{r}
+rnaseq2 <- read_csv("DataViz_source_files-main/files/GSE150029_rnaseq_log2_long.csv")
+```
+
+```{r}
+ggplot(rnaseq2, aes(x=log2_counts)) + 
+  geom_histogram()
+```
+
+Split the histogram per sample:
+
+```{r}
+ggplot(rnaseq2, aes(x=log2_counts, color=sample)) + 
+  geom_histogram() 
+```
+
+Set position to "identity": histograms will not be "on top of each other" but on a comparative scale:
+
+```{r}
+ggplot(rnaseq2, aes(x=log2_counts, color=sample)) + 
+  geom_histogram(position="identity")
+```
+
+Set alpha (transparency to 0.2):
+
+```{r}
+ggplot(rnaseq2, aes(x=log2_counts, color=sample)) + 
+  geom_histogram(position="identity", alpha=0.2)
+```
+
+Express as density instead of counts:
+
+```{r}
+ggplot(rnaseq2, aes(x=log2_counts, color=sample)) + 
+  geom_histogram(aes(y=after_stat(density)), position="identity", alpha=0.2) +
+  theme_classic()
+```
+
+
+### Density plot
+
+It is similar to create a density plot, using **geom_density**:
+
+
+```{r}
+ggplot(rnaseq2, aes(x=log2_counts, color=sample)) + 
+  geom_density(alpha=0.2) +
+  theme_classic()
+```
+
+You can use fill instead:
+
+```{r}
+ggplot(rnaseq2, aes(x=log2_counts, fill=sample)) + 
+  geom_density(alpha=0.2) +
+  theme_classic()
+```
+
+### Histogram + density
+
+As we combined geom_boxplot and geom_violin in a previous exercise, we can also combine geom_histogram and geom_density:
+
+```{r}
+ggplot(rnaseq2, aes(x=log2_counts, color=sample)) + 
+  geom_histogram(aes(y=after_stat(density)), position="identity", alpha=0.2) +
+  geom_density(alpha=0.2) +
+  theme_classic()
+```
+
+
+## Pie chart
+
+Pie charts are used to visualize how much each categories contribute to a whole, with each "slice" representing one category.
+
+We will plot a pie chart representing the number of genes from **gtf** found in each chromosome.
+
+Prepare data so as to obtain counts (that is more advanced dplyr manipulation - we will not go through details):
+
+```{r}
+gtf_count_chr <- gtf %>%
+  group_by(chr) %>% # group by allows to make the next calculations by the group specified
+  summarise(counts=n())
+```
+
+The **coord_polar()** is needed here: pie plots are stacked barplots in polar coordinates.
+
+```{r}
+ggplot(data=gtf_count_chr, mapping=aes(x="", y=counts, fill=chr)) + 
+  geom_bar(stat="identity") +
+  coord_polar("y", start=0)
+```
+
+```{r}
+ggplot(data=gtf_count_chr, mapping=aes(x="", y=counts, fill=chr)) + 
+  geom_bar(stat="identity") +
+  coord_polar("y", start=0) +
+  theme_void()
+```
+
+Change the color scale:
+
+```{r}
+ggplot(data=gtf_count_chr, mapping=aes(x="", y=counts, fill=chr)) + 
+  geom_bar(stat="identity") +
+  coord_polar("y", start=0) +
+  scale_fill_brewer(palette="Paired") +
+  theme_void()
+```
+
+Here is a [nice page](https://genchanghsu.github.io/ggGallery/posts/2021-06-18-post-3-pie-charts-with-ggplot/) about more pie plot customization.
+
+## Marginal plots
+
+Function [**ggMarginal**](https://www.rdocumentation.org/packages/ggExtra/versions/0.10.1/topics/ggMarginal) from package {ggExtra} allows to easily add histograms, boxplots or density plots to the margins of a scatter plot.
+
+```{r}
+library(ggExtra)
+
+# Save the classic plot to an object.
+p <- ggplot(data=geneexp, mapping=aes(x=sample1, y=sample2)) +
+      geom_point()
+```
+
+```{r}
+# add marginal histogram
+ggMarginal(p, type="histogram")
+```
+
+```{r}
+# add marginal density
+ggMarginal(p, type="density")
+```
+
+```{r}
+# add marginal boxplot
+ggMarginal(p, type="boxplot")
+```
+
+The **mapping of variables** (for example, using **color** or **fill**) can also be **inherited** by the marginal plots.
+
+```{r}
+# add mapping of points to "DE" column :
+p <- ggplot(data=geneexp, mapping=aes(x=sample1, y=sample2, color=DE)) +
+  geom_point()
+
+# tell ggMarginal to color / split the boxplot according to variable mapped in color/colour
+ggMarginal(p, type="boxplot", groupColour = TRUE)
+```
+
+Let's add more features that we have learned in this workshop:
+
+```{r, fig.height=12, fig.width=10}
+# add mapping of points to "DE" column :
+p <- ggplot(data=geneexp, mapping=aes(x=sample1, y=sample2, color=DE)) +
+  geom_point() +
+  theme_minimal(base_size = 16) +
+  geom_rug(alpha=0.4, sides = "tr") +
+  geom_density_2d(alpha=0.2, colour = "pink") +
+  ggtitle("Example of ggMarginal") +
+  theme(legend.position="bottom", plot.title = element_text(hjust = 0.5))
+
+# tell ggMarginal to color / split the boxplot according to variable mapped in color/colour
+ggMarginal(p, type="boxplot", groupColour = TRUE)
+```
+

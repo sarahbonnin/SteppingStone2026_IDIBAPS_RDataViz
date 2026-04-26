@@ -1,0 +1,115 @@
+# More ggplots
+
+## Histograms and density plots
+
+### Histogram
+
+We can use one of our previous objects to create a histogram. You can get it back with:
+
+```{r}
+rnaseq2 <- read_csv("DataViz_source_files-main/files/GSE150029_rnaseq_log2_long.csv")
+```
+
+```{r}
+ggplot(rnaseq2, aes(x=log2_counts)) + 
+  geom_histogram()
+```
+
+We can split the histogram per sample:
+
+```{r}
+ggplot(rnaseq2, aes(x=log2_counts, color=sample)) + 
+  geom_histogram() 
+```
+
+Set position to "identity", so histograms will not be on top of each other:
+
+```{r}
+ggplot(rnaseq2, aes(x=log2_counts, color=sample)) + 
+  geom_histogram(position="identity")
+```
+
+Set alpha (transparency to 0.2):
+
+```{r}
+ggplot(rnaseq2, aes(x=log2_counts, color=sample)) + 
+  geom_histogram(position="identity", alpha=0.2)
+```
+
+Express as density instead of counts:
+
+```{r}
+ggplot(rnaseq2, aes(x=log2_counts, color=sample)) + 
+  geom_histogram(aes(y=after_stat(density)), position="identity", alpha=0.2) +
+  theme_classic()
+```
+
+
+### Density plot
+
+The structure is pretty much the same:
+
+```{r}
+ggplot(rnaseq2, aes(x=log2_counts, color=sample)) + 
+  geom_density(alpha=0.2) +
+  theme_classic()
+```
+
+You can use fill instead:
+
+```{r}
+ggplot(rnaseq2, aes(x=log2_counts, fill=sample)) + 
+  geom_density(alpha=0.2) +
+  theme_classic()
+```
+
+### Histogram + density
+
+As we combined geom_boxplot and geom_violin in a previous exercise, we can also combine geom_histogram and geom_density:
+
+```{r}
+ggplot(rnaseq2, aes(x=log2_counts, color=sample)) + 
+  geom_histogram(aes(y=after_stat(density)), position="identity", alpha=0.2) +
+  geom_density(alpha=0.2) +
+  theme_classic()
+```
+
+
+## Pie chart
+
+We will plot a pie chart representing the number of genes from **gtf** found in each chromosome.
+
+Prepare data so as to obtain counts (that is more advanced dplyr manipulation - we will not go through details):
+
+```{r}
+gtf_count_chr <- gtf %>%
+  group_by(chr) %>% # group by allows to make the next calculations by the group specified
+  summarise(counts=n())
+```
+
+The **coord_polar()** is needed here: pie plots are stacked barplots in polar coordinates.
+
+```{r}
+ggplot(data=gtf_count_chr, mapping=aes(x="", y=counts, fill=chr)) + 
+  geom_bar(stat="identity") +
+  coord_polar("y", start=0)
+```
+
+```{r}
+ggplot(data=gtf_count_chr, mapping=aes(x="", y=counts, fill=chr)) + 
+  geom_bar(stat="identity") +
+  coord_polar("y", start=0) +
+  theme_void()
+```
+
+Change the color scale:
+
+```{r}
+ggplot(data=gtf_count_chr, mapping=aes(x="", y=counts, fill=chr)) + 
+  geom_bar(stat="identity") +
+  coord_polar("y", start=0) +
+  scale_fill_brewer(palette="Paired") +
+  theme_void()
+```
+
+Here is a [nice page](https://genchanghsu.github.io/ggGallery/posts/2021-06-18-post-3-pie-charts-with-ggplot/) about more pie plot customization.

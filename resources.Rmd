@@ -1,0 +1,24 @@
+# Resources
+
+* [RStudio/Tidyverse cheatsheets](https://posit.co/resources/cheatsheets/):
+  * [RStudio](https://rstudio.github.io/cheatsheets/html/rstudio-ide.html)
+  * [ggplot2](https://rstudio.github.io/cheatsheets/html/data-visualization.html)
+  * [dplyr](https://rstudio.github.io/cheatsheets/html/data-transformation.html)
+  * [tidyr](https://rstudio.github.io/cheatsheets/html/tidyr.html)
+  * [readr](https://rstudio.github.io/cheatsheets/html/data-import.html)
+* ggplot2 / R graphics:
+  * [ggplot elegant graphics for data analysis](https://ggplot2-book.org/)
+  * [R graph gallery](https://r-graph-gallery.com/)
+  * [R graphics cookbook](http://www.cookbook-r.com/Graphs/)
+  * [ggplot2 extensions](https://exts.ggplot2.tidyverse.org/gallery/)
+  * [ggplotly](https://rpubs.com/McGarveyA/ggplot2-plotly)
+  * [Intro to animations in ggplot2](https://plotly.com/ggplot2/animations/)
+  * [Curated list of awesome ggplot2 packages, tutorials, etc.](https://github.com/erikgahner/awesome-ggplot2)
+  * [complete guide on how to modify the ggplot2 theme](https://ggplot2tor.com/theme/).
+  * [ggplot2 theme elements demonstration (source of above image)](https://henrywang.nl/ggplot2-theme-elements-demonstration/)
+  * [ggplot2 styling](https://tidyverse.org/blog/2025/10/ggplot2-styling/)
+* Online courses:
+  * [R programming Coursera course (Johns Hopkins University)](https://www.coursera.org/learn/r-programming)
+  * [Official up-to-date introduction to R (from the R Core Team)](https://cran.r-project.org/doc/manuals/r-release/R-intro.pdf)
+  * [CRG Biocore intro course to the Tidyverse](https://biocorecrg.github.io/CRG_R_tidyverse_2021/)
+

@@ -1,0 +1,135 @@
+# R basics
+
+In this section, we will cover very basic notions of R programming.
+
+## Arithmetic operators
+
+R is a programming language with a focus on statistics. While it can be used for very complex tasks, it can also be used as a simple **calculator**, as previously demonstrated.
+
+The following arithmetic operators can be used for these tasks:
+
+| Operator  | Function      |
+|:--------: |:-------------:|
+|     +     | addition      |
+|     -     | subtraction   |
+|     /     | division      |
+|     *     | multiplication|
+|  ^ or **  | exponential   |
+
+In the R terminal, you can type the following:
+
+```{r, eval=FALSE}
+10-2
+```
+
+And hit **Enter** for R to interpret the command, and output the result.
+
+Then try the following:
+
+```{r, eval=F}
+3*5
+```
+
+or:
+
+```{r, eval=F}
+(4*12)/5
+```
+
+
+## Objects in R
+
+We have thus far used the console interactively receiving instanteneous results from R **in the console.**
+
+Data/output of commands can also be stored in **objects**.
+
+Everything that stores any kind of data in R is an **object**:
+
+<img src="images/R_basics_objects.png" alt="rstudio logo" width="350"/>
+
+When data is stored in objects, it can easily be **manipulated, modified, and reused.**
+
+## Assigning data to an object
+
+We will use an assignment operator to **assign (i.e. store) data to an object:**
+
+You can use either **<-** or **=** (essentially the same).
+
+Examples:
+
+* Assigning/storing **10** to the object named **B**:
+
+Copy-paste the following in the console, and hit Enter.
+
+```{r}
+B <- 10
+```
+
+Note that there is **no output** in the console. If you now type **B** in the R console, and hit Enter, what happens?
+
+* Reassigning: modifying the content of an object:
+
+```{r, eval=FALSE}
+B <- 12
+```
+
+* You can also use an object to assign data to a new (or to the same) object: try the following in the console:
+
+```{r, eval=FALSE}
+B <- 12
+A <- 5
+A <- A + B
+```
+
+What values do A and B store now?
+
+
+* You can see the objects you created in the upper-right panel in RStudio that is, the **environment**:
+
+<img src="images/R_basics_object_env.png" alt="R object env" width="500"/>
+
+**How to name an object?**
+
+Naming an object in R is flexible, if you follow a few base rules.
+
+You can use:
+
+* letters (note that object names case sensitive: **A** and **a** are NOT the same)
+* numbers (although the object name **cannot start with a number**)
+* underscores **\_**
+
+What you CANNOT use:
+
+* Spaces
+* Most special characters
+
+## Data types
+
+Several data types exist in R: 
+
+* numeric (numbers)
+* character (strings)
+* logical / boolean (TRUE / FALSE)
+* factor (categories)
+
+For this introductory course, we will mainly see and manipulate numeric (numbers) and character (strings) data types.
+
+A character or string of characters must be assigned with simple or double **quotes ("")**, for example:
+
+```{r}
+myobject <- "training"
+```
+
+You should now see in the environment (upper-right corner) the new object called **training**.
+
+Now try to assign the same object **without the quotes**:
+
+```{r, eval=F}
+myobject <- training
+```
+
+What happens?
+
+
+
+

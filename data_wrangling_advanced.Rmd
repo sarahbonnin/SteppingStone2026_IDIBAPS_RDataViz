@@ -1,0 +1,171 @@
+# More advanced data manipulation
+
+## The pipe operator
+
+The **tidyverse** provides a function **%>%** which **pipes** the output of one function as the input of the next function. 
+
+This way, different functions from the tidyverse can be linked together into a clean piece of code.
+
+If we want to produce a one-liner out of the 3 lines of code of the previous exercise, we can do it the following way:
+
+```{r}
+gtf_final <- rename(gtf, chromosome=chr) %>%
+  filter(strand=="+" & chromosome=="chr4") %>%
+  select(gene_symbol, gene_type)
+```
+
+*Note that, in filter and select, you do not need to specify the first parameter (the data), as it is automatically looking for the output of the previous one!*
+
+If you want to learn more about the **pipe**, you can for example refer to [that page](https://style.tidyverse.org/pipes.html).
+
+Note that we can also link the data manipulation output to ggplot: the **output of the last command will then be used as an input to ggplot**:
+
+```{r}
+rename(gtf, chromosome=chr) %>%
+  filter(strand=="+" & chromosome=="chr4") %>%
+  select(gene_symbol, gene_type) %>% 
+  ggplot(aes(x=gene_type)) + geom_bar()
+```
+
+
+## From wide to long format
+
+The wide format is what you would typically have in a table with measurements, such as genes in rows and samples in columns.
+
+However, we have seen that ggplot2 sometimes requires data to be **converted to a long format**.
+
+In a long format, **one row corresponds to one observation/measurement, with all information associated to it**.
+
+**{tidyr}** provides **pivot_longer()** to convert wide to long format, and **pivot_wider()** to convert a long to a wide format.
+
+Our object geneexp is in a wide format. Two columns contain values of expression:
+
+```{r, echo=F}
+head(geneexp, 5)
+```
+
+In order to convert to a long format we will create:
+
+* One column that contains the sample names
+* One column that contains the expression values
+
+```{r}
+pivot_longer(geneexp, cols=c("sample1", "sample2"))
+```
+
+We can specify the names of the new columns as we create them:
+
+```{r}
+pivot_longer(geneexp, cols=c("sample1", "sample2"), names_to = "samples", values_to = "expression")
+```
+
+
+## Exercise 8
+
+Let's do a small exercise to practice this conversion.
+
+1. Read in file **DataViz_source_files-main/files/stats_countries_barcelona_2013-2023.csv**
+
+<details>
+<summary>
+correction
+</summary>
+
+```{r}
+stats_countries <- read_csv("DataViz_source_files-main/files/stats_countries_barcelona_2013-2023.csv")
+```
+
+</details>
+
+<br>
+2. Columns 2013 to 2022 contain **observations**. Convert this wide format into a long format. Save into a new object.
+
+<details>
+<summary>
+correction
+</summary>
+
+```{r, eval=TRUE}
+# Option 1: list all columns
+stats_countries_long <- pivot_longer(stats_countries, 
+                                     cols=c("2013", "2014", "2015", "2016", "2017", "2018", "2019", "2020", "2021", "2022", "2023"),
+                                     values_to = "Population",
+                                     names_to = "Years")
+
+# Option 2: select columns that start with "20"
+stats_countries_long <- pivot_longer(stats_countries, 
+                                     cols=starts_with("20"),
+                                     values_to = "Population",
+                                     names_to = "Years")
+
+# Option 3: select all numeric columns
+stats_countries_long <- pivot_longer(stats_countries, 
+                                     cols=where(is.numeric),
+                                     values_to = "Population",
+                                     names_to = "Years")
+```
+
+</details>
+
+<br>
+3. Do the 3 following tasks linked by a **%>%** (pipe):
+
+* Keep only rows that 
+  * match "America" in column "Continent"
+  * have a population >= 50 (column "Population")
+* Remove column **Continent**.
+* Produce a barplot with "Years" in the x-axis, Population in the y-axis, and split by Country.
+
+<details>
+<summary>
+correction
+</summary>
+
+```{r, fig.width=15}
+stats_countries_long_filtered <- filter(stats_countries_long, Continent=="America" & Population >= 50) %>%
+  select(-Continent)
+
+ggplot(data=stats_countries_long_filtered, mapping=aes(x=Years, y=Population, fill=Country)) +
+  geom_bar(stat = "identity", position = "dodge")
+```
+
+</details>
+
+4. Customize your plot! Remember what we have done so far... You can, for example:
+
+* Add a title (**ggtitle()**)
+* Change the overall theme (e.g. **theme_bw()**, **theme_minimal()**) and / or play with graphical parameters (see section on **theme()** function)
+* Facet the graph (**facet_wrap()**)
+* ... what else?...
+
+<details>
+<summary>
+One way out of hundreds of ways to show your data!
+</summary>
+
+```{r, fig.width=15, fig.height=10}
+ggplot(data=stats_countries_long_filtered, mapping=aes(x=Years, y=Population, fill=Country)) +
+  geom_bar(stat = "identity", position = "dodge") + 
+  theme_minimal(base_size = 14) + 
+  ggtitle("American population in Barcelona from 2013 to 2023") + 
+  theme(axis.text.x = element_text(angle=90), plot.title = element_text(size = 16, hjust = 0.5, face = "bold")) +
+  facet_wrap(~Country)
+```
+
+If you have tried to change the color scale, you may have noticed that none are large enough for this data (we need 22 colors). One way to tackle this problem is to combine color palettes (e.g. from RColorBrewer) prior to plotting.
+
+```{r, fig.width=15, fig.height=10}
+# create a vector of 22 colors from RColorBrewer
+my22colors <- c(brewer.pal(n=11, name="Paired"), brewer.pal(n=11, name="Set3"))
+
+# feed the colors to "scale_fill_manual"
+ggplot(data=stats_countries_long_filtered, mapping=aes(x=Years, y=Population, fill=Country)) +
+  geom_bar(stat = "identity", position = "dodge") + 
+  theme_minimal(base_size = 14) + 
+  scale_fill_manual(values=my22colors) +
+  ggtitle("American population in Barcelona from 2013 to 2023") + 
+  theme(axis.text.x = element_text(angle=90), plot.title = element_text(size = 16, hjust = 0.5, face = "bold")) +
+  facet_wrap(~Country)
+```
+
+</details>

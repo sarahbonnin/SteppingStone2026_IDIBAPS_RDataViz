@@ -1,0 +1,60 @@
+# What is RStudio (Posit)?
+
+* Free and open source IDE (Integrated Development Environment) for R
+
+* Available for Windows, Mac OS and LINUX
+
+<img src="images/posit_logo.png" alt="rstudio logo" width="500"/> <img src="images/rstudio_logo.jpeg" alt="rstudio logo" width="250"/>
+
+
+
+## RStudio interface
+
+* 4 panels:
+	+ **top-left**: scripts and files
+	+ **bottom-left**: R console Linux-line terminal / command-line
+	+ **top-right**: environment, history, connections, tutorial
+	+ **bottom-right**: tree of folders and files, plots/graphs window, packages, help window, viewer, presentation
+
+<img src="images/rstudio_interface.png" alt="rstudio interface" width="1200"/>
+
+## The R console
+
+The R **console** (bottom-left panel) is where the magic happens!
+
+It is where the user/programmer/you **interacts** with R.
+
+Let's try. 
+
+Type (or copy-paste) the following in the console (bottom-left panel), and hit the **Enter/Return** key:
+<img src="images/rstudio_return_key.png" alt="return key 1" width="60"/>
+<img src="images/rstudio_return_key2.jpg" alt="return key 2" width="100"/>
+
+```{r, eval=F}
+getwd()
+```
+
+* **getwd()** is a function. Remember that functions are followed by **parenthesis/round brackets**.
+
+* Clicking **Enter/Return** sends the function to the R kernel and **executes/interprets the function**.
+
+* R returns the **response/result** after the function has completed.
+
+**getwd()** retrieves and outputs your current working directory/path (we will explain paths in the next section).
+
+Let's try again.
+
+Copy-paste the following, and hit Enter/Return:
+
+```{r, eval=F}
+7*3
+```
+
+R gives you the results of this simple multiplication.
+
+**USEFUL TIP**
+
+In the console, press the keyboard **up arrow** key <img src="images/rstudio_up_arrow.png" alt="rstudio interface" width="50"/>: this goes **back to the previous commands/lines** you wrote and sent in the console.
+
+
+

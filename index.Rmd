@@ -1,0 +1,98 @@
+--- 
+title: "R for beginners: Introduction to data visualization with R and ggplot2: from data to publication-quality figures"
+subtitle: "IDIBAPS Stepping-stone training program 2025"
+author: "Sarah Bonnin, Leone Albinati"
+date: "`r Sys.Date()`"
+site: bookdown::bookdown_site
+output: bookdown::gitbook
+documentclass: book
+bibliography: [book.bib, packages.bib]
+biblio-style: apalike
+link-citations: yes
+---
+
+# Welcome
+
+<h3> Dates, time & location </h3>
+
+* Dates: October 21st and 30th, 2025
+* Time:  9:30-13:00
+* Location: [IDIBAPS](https://www.clinicbarcelona.org/en/idibaps)
+
+<h3> Instructors </h3>
+ 
+[Sarah Bonnin](https://www.linkedin.com/in/sarahbonnin/) 
+
+Manager, Discovery & Translational Science consulting at [Clarivate](https://clarivate.com/).
+
+[Leone Albinati]()
+
+PhD student at the [Beekman lab at CRG](https://www.crg.eu/en/programmes-groups/beekman-lab)
+
+<h3>Prerequisites</h3>
+
+The workshop is open to anyone with **no (or little) prior programming experience**.
+
+Attendees must however **feel comfortable enough with their own computer to install programs** (and debug their installation, when needed) and **locate folders and files**.
+
+<h3> Learning objectives</h3>
+
+Attendees will:
+
+* Gain a high-level understanding of data import, manipulation and graphing with R and RStudio. 
+* Be able to produce and save a variety of publication-quality graphs (among others: boxplots, scatter plots, barplots).
+
+<h3>Learning outcomes</h3>
+
+* Identify and use RStudio panels (console, scripts, folders and files panels).
+* Locate useful resources to learn more and know where to seek help.
+* Import data from files into R.
+* Manipulate and prepare (filter, select) data.
+* Produce graphs:
+  * Create a plot from “recipes”.
+  * Change basic parameters (color, font size, point shape, title, etc.).
+  * Export high-quality graphs in different formats (pdf, jpeg, png).
+
+<h4>What this workshop is **NOT**:</h4>
+
+* A programming class.
+* A design class.
+
+<h4>What this workshop is:</h4>
+
+* An introduction to R and to RStudio software.
+* An introduction to data visualization.
+* A teaser to - hopefully - make you want to learn how to program in R!
+
+<h3>Tentative agenda</h3>
+
+Day 1 & 2: 9:30-13:00.
+<br>
+~15-20' break around 11:15-11:30.
+
+* Welcome and set up
+* Introduction to R and RStudio (Posit)
+* Paths and directories
+* R basics
+* Data import
+* ggplot2:
+  * Introduction, concept
+  * Scatter plots
+  * Barplots
+  * Boxplots
+  * Fine-tuning font
+  * Colors
+  * Faceting
+* Data filtering and wrangling:
+  * select
+  * filter
+  * rename
+* More ggplots
+* Interactive plots with {plotly}
+* More advanced data manipulation:
+  * the pipe operator
+  * from wide to long format
+* Heatmaps with {pheatmap}
+* Demo volcano plots
+
+<img src="images/R_logo.png" alt="R logo" width="150"/> <img src="images/posit_logo.png" alt="posit logo" width="250"/> <img src="images/rstudio_logo.jpeg" alt="rstudio logo" width="150"/> <img src="images/R_tidyverse_logo.png" alt="tidyverse logo" width="150"/>

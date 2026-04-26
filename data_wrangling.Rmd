@@ -1,0 +1,143 @@
+# Data filtering and wrangling
+
+In this section, we will learn to use a few functions to filter, select and re-organize a data object.
+
+## filter()
+
+**filter()** will filter (keep or remove) **rows**.
+
+We can start from **geneexp** object, and filter only down-regulated genes using the **filter()** function of **{dplyr}**.
+
+If you need to import the data again, run the following command:
+
+```{r, eval=FALSE}
+geneexp <- read_csv("DataViz_source_files-main/files/expression_20genes.csv")
+```
+
+```{r}
+filter(geneexp, DE=="Down")
+```
+
+**==** is a **logical operator** that represents equality. It means that filter will return **rows in geneexp that are exactly equal to "Down"**.
+
+Logical operators:
+
+| Operator  | Description   |
+|:--------: |:-------------:|
+|     <     | less than    |
+|     <=    | less than or equal to   |
+|     >     | greater than  |
+|     >=    | greater than or equal to|
+|     ==    | exactly equal to   |
+|     !=    | not equal to |
+|    !x     | not x |
+|    x \| y  | x OR y |
+|    x & y  | x AND y |
+
+We can have several conditions.
+
+For example, we may want to extract only rows that have either **Up** OR **Down** in **DE**:
+
+```{r}
+filter(geneexp, DE=="Down" | DE=="Up")
+```
+
+Here, we introduce another operator, **|**, that means **OR**: rows are kept if values are either **Down** OR **Up** in **DE** column.
+
+A good practice is to assign the filtered output to a new object, for example:
+
+```{r}
+geneexp_filt <- filter(geneexp, DE=="Down" | DE=="Up")
+```
+
+## select()
+
+**select()** will select (keep or remove) **columns** from a data frame.
+
+Select only columns **Gene** and **DE** from **geneexp**:
+
+```{r}
+select(geneexp, Gene, DE)
+```
+
+Remove column **DE**:
+
+```{r}
+select(geneexp, -DE)
+```
+
+Again, a good practice is to save that subset into a new object:
+
+```{r}
+geneexp_selected <- select(geneexp, Gene, DE)
+```
+
+## rename()
+
+You can rename a column using the **rename()** function.
+
+For example, we can rename column **Gene** to **Symbol**, the following way:
+
+```{r}
+rename(geneexp, Symbol=Gene)
+```
+
+The first argument is the data, then comes the column(s) to rename in the format: *new_name=old_name*.
+
+
+## Exercise 4
+
+In this short exercise, you will practice using the functions for data manipulation we just learned.
+
+We will start from **gtf**.
+
+If **gtf** it is no longer in your environment, load it with:
+
+```{r, eval=F}
+gtf <- read_csv("DataViz_source_files-main/files/gencode.v44.annotation.csv")
+```
+
+1. Rename column **chr** as **Chromosome**. Assign to a new object.
+
+<details>
+<summary>
+correction
+</summary>
+
+```{r}
+gtf2 <- rename(gtf, chromosome=chr)
+```
+
+</details>
+
+<br>
+2. Keep rows with **"+"** strand on chromosome **"chr4"**. Assign this filtered data to a new object.
+
+<details>
+<summary>
+correction
+</summary>
+
+```{r}
+gtf3 <- filter(gtf2, strand=="+" & chromosome=="chr4")
+```
+
+</details>
+
+<br>
+
+3. Remove columns **strand** and **gene_type**.
+
+<details>
+<summary>
+correction
+</summary>
+
+```{r}
+gtf4 <- select(gtf3, -strand, -gene_type)
+```
+
+</details>
+
+<br>
+

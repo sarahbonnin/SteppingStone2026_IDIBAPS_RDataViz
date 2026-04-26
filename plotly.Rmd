@@ -1,0 +1,62 @@
+# Interactive plots with {plotly}
+
+**{plotly}** is a package that makes interactive graphs.
+
+There are many applications to plotly, but a simple one is to convert a plot created by ggplot into an interactive version.
+
+First we can install **plotly** (bottom-right panel -> Packages -> Install).
+
+And then we load the package: **tick** the package in the list.
+
+<br>
+
+Let's read again one of our first data file:
+
+```{r, echo=T, eval=F}
+geneexp <- read_csv("DataViz_source_files-main/files/expression_20genes.csv")
+```
+
+We can first save the "ggplot" as an object **myplot**:
+
+```{r}
+myplot <- ggplot(data=geneexp, mapping=aes(x=sample1, y=sample2, label=Gene, color=DE)) + 
+  geom_point()
+```
+
+And then input that object into the **ggplotly()** function. 
+
+```{r, echo=T, eval=F}
+ggplotly(p=myplot)
+```
+
+The interactive plot should appear in the **Viewer** tab (bottom-right panel). Not that you can zoom into the plot!
+
+Customize what appears in the tooltip box. For example, here, we only show the gene label information:
+
+```{r, echo=T, eval=F}
+ggplotly(p=myplot, tooltip="label")
+```
+
+It also works for different types of plots: for example, barplots.
+
+```{r}
+mybarplot <- ggplot(data=geneexp, mapping=aes(x=DE)) + 
+  geom_bar()
+```
+
+```{r, echo=T, eval=F}
+ggplotly(p=mybarplot)
+```
+
+You can add ggplot2 layers / components:
+
+```{r}
+mybarplot <- ggplot(data=geneexp, mapping=aes(x=DE)) + 
+  geom_bar() +
+  ggtitle(label="barplot in ggplotly") +
+  theme_bw()
+```
+
+```{r, echo=T, eval=F}
+ggplotly(p=mybarplot)
+```

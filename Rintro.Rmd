@@ -1,0 +1,79 @@
+# R
+
+<img src="images/R_logo.png" alt="rstudio check packages" width="300"/>
+
+
+## What is R ?
+
+* Programming language and environment for **data manipulation**, **statistical computing**, and **graphical display**.
+
+* Implementation of the S programming language
+
+* Created at the University of Auckland, New Zealand:
+	+ Initial version released in 1995
+	+ Stable version released in 2000
+* **Free and open source !**
+	+ https://www.r-project.org/
+
+* Interactive, flexible
+
+* Very active community of developers and users!
+	+ Many resources and forums available
+
+## Functions & packages
+
+### Functions
+
+A function in R is a piece of code that takes an **input** (user data, **parameters**), processes some **calculation**, and **outputs** data.
+
+For example: the **mean()** function would take a vector / series of numbers as an input, calculate and output their average.
+
+Functions can take **arguments/parameters**. In the example above, the main argument to mean() would be a series of numbers given by the user.
+
+In R code, you can identify functions with the parenthesis ("round brackets") following their name.
+
+
+### Packages
+
+#### What are packages?
+
+A package in R stores, in a standardized format, a set of functions, data and documentation.
+
+They are developed and shared by the community of R users and developpers, and vary in size and complexity.
+
+Packages are stored in a **library**.
+
+<img src="images/R_packages_logos.png" alt="rstudio logo" width="600"/>
+
+[source](https://www.mitchelloharawild.com/blog/2018-07-10-hexwall_files/figure-html/final-1.png)
+
+Packages are mostly available in public **repositories** or open-source platforms such as:
+
+- CRAN (general repository for any type of data analysis).
+- Bioconductor (initially specialized in high throughput data analysis / bioinformatics)
+- GitHub
+
+Anyone can create a package and stored it locally; creating packages is a great way to **share code**.
+
+The previous function, **mean()**, is part of the **{base}** package that is available by default.
+
+#### The "tidyverse"
+
+*The [tidyverse](https://www.tidyverse.org/) is an opinionated collection of R packages designed for data science. All packages share an underlying design philosophy, grammar, and data structures.*
+
+<img src="images/R_packages_tidyverse.png" alt="rstudio logo" width="600"/>
+
+[source](hhttps://ajsmit.github.io/Intro_R_Official/tidy.html)
+
+**Why do we use the tidyverse packages in this course?**
+
+* Easier to understand / more intuitive vocabulary: better for beginners.
+* More "modern" style of coding.
+* Uniform in style and logic across data manipulation and visualization.
+* Very (and increasingly) popular
+
+In this course, we will use in particular, and in that order:
+
+* [{readr}](https://readr.tidyverse.org/) for importing / exporting files.
+* [{ggplot2}](https://ggplot2.tidyverse.org/) for data visualization.
+* [{dplyr}](https://dplyr.tidyverse.org/) for (simple) data manipulation and selection.

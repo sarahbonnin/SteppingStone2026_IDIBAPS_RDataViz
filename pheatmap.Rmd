@@ -1,0 +1,52 @@
+# Heatmaps with {pheatmap}
+
+We will introduce package **{pheatmap}** to produce heatmaps.
+
+First we can install **pheatmap** (bottom-right panel -> Packages -> Install).
+
+And then we load the package: **tick** the package in the list, or load it from the console:
+
+<br>
+```{r, echo=T, fig.height=15, fig.width=10}
+library(pheatmap)
+```
+
+**pheatmap** is not from the tidyverse package, and does not follow the same structure. It does not work with layers, but with multiple parameters inside a same function.
+
+Let's read the following data file, and convert it to matrix (that is the input format for pheatmap):
+
+```{r, echo=T, eval=T}
+expr_heatmap <- read_csv("DataViz_source_files-main/files/GSE150029_rnaseq_for_heatmap.csv") %>%
+  column_to_rownames(var = "gene_name") %>%
+  as.matrix()
+```
+
+You can then simply plot the heatmap, giving the matrix as an input:
+
+```{r, eval=F, fig.height=7, fig.width=6}
+pheatmap(expr_heatmap)
+```
+
+Control what is clusters: rows, columns, both, or none:
+
+```{r, eval=T, fig.height=7, fig.width=6}
+pheatmap(expr_heatmap, cluster_cols=FALSE, cluster_rows=TRUE)
+```
+
+Show or hide row names:
+
+```{r, eval=T, fig.height=7, fig.width=6}
+pheatmap(expr_heatmap, show_rownames = F)
+```
+
+Change the color scale (**rainbow()** and **heat.colors()** are available from the base packages):
+
+```{r, eval=T, fig.height=7, fig.width=6}
+pheatmap(expr_heatmap, color = rainbow(10), main = "Rainbow colors")
+```
+
+
+```{r, eval=T, fig.height=7, fig.width=6}
+pheatmap(expr_heatmap, color = heat.colors(10), main="Heat colors")
+```
+

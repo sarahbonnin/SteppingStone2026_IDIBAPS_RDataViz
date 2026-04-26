@@ -1,0 +1,27 @@
+geo_accession,title,source_name,genotype,treatment,cell_type
+GSM8513081,WT1_bas,primary keratinocytes,WT,basal,primary keratinocytes
+GSM8513082,WT2_bas,primary keratinocytes,WT,basal,primary keratinocytes
+GSM8513083,WT3_bas,primary keratinocytes,WT,basal,primary keratinocytes
+GSM8513084,WT4_bas,primary keratinocytes,WT,basal,primary keratinocytes
+GSM8513085,WT5_bas,primary keratinocytes,WT,basal,primary keratinocytes
+GSM8513086,WT1_stim,primary keratinocytes,WT,IL17A/TNFa,primary keratinocytes
+GSM8513087,WT2_stim,primary keratinocytes,WT,IL17A/TNFa,primary keratinocytes
+GSM8513088,WT3_stim,primary keratinocytes,WT,IL17A/TNFa,primary keratinocytes
+GSM8513089,WT4_stim,primary keratinocytes,WT,IL17A/TNFa,primary keratinocytes
+GSM8513090,WT5_stim,primary keratinocytes,WT,IL17A/TNFa,primary keratinocytes
+GSM8513091,KO1_bas,primary keratinocytes,KO,basal,primary keratinocytes
+GSM8513092,KO2_bas,primary keratinocytes,KO,basal,primary keratinocytes
+GSM8513093,KO3_bas,primary keratinocytes,KO,basal,primary keratinocytes
+GSM8513094,KO4_bas,primary keratinocytes,KO,basal,primary keratinocytes
+GSM8513095,KO5_bas,primary keratinocytes,KO,basal,primary keratinocytes
+GSM8513096,KO6_bas,primary keratinocytes,KO,basal,primary keratinocytes
+GSM8513099,KO7_bas,primary keratinocytes,KO,basal,primary keratinocytes
+GSM8513102,KO8_bas,primary keratinocytes,KO,basal,primary keratinocytes
+GSM8513105,KO1_stim,primary keratinocytes,KO,IL17A/TNFa,primary keratinocytes
+GSM8513107,KO2_stim,primary keratinocytes,KO,IL17A/TNFa,primary keratinocytes
+GSM8513110,KO3_stim,primary keratinocytes,KO,IL17A/TNFa,primary keratinocytes
+GSM8513111,KO4_stim,primary keratinocytes,KO,IL17A/TNFa,primary keratinocytes
+GSM8513112,KO5_stim,primary keratinocytes,KO,IL17A/TNFa,primary keratinocytes
+GSM8513113,KO6_stim,primary keratinocytes,KO,IL17A/TNFa,primary keratinocytes
+GSM8513114,KO7_stim,primary keratinocytes,KO,IL17A/TNFa,primary keratinocytes
+GSM8513115,KO8_stim,primary keratinocytes,KO,IL17A/TNFa,primary keratinocytes

@@ -1,0 +1,118 @@
+# Demo volcano plot
+
+A volcano plot is a type of scatter plot represents differential expression of features (genes for example): on the x-axis we typically find the fold change and on the y-axis the p-value.
+<br>
+
+Here is a demo of how to create a volcano plot from a file containing :
+
+* Gene symbol
+* log2 fold change
+* p-value
+
+Read in the file:
+
+```{r}
+de <- read_csv("DataViz_source_files-main/files/demo_volcano.csv")
+``` 
+
+```{r}
+# The basic scatter plot: x is "log2FoldChange", y is "pvalue"
+ggplot(data=de, aes(x=log2FoldChange, y=pvalue)) + 
+  geom_point()
+```
+
+Doesn't look quite like a Volcano plot...<br>
+
+In volcano plots, the p-value is converted into a -log10(p-value):
+
+```{r}
+# Convert directly in the aes()
+ggplot(data=de, aes(x=log2FoldChange, y=-log10(pvalue))) + 
+  geom_point()
+```
+
+That's better!
+
+Choose a nicer **theme**:
+
+```{r}
+p <- ggplot(data=de, aes(x=log2FoldChange, y=-log10(pvalue))) + 
+  geom_point() + 
+  theme_minimal()
+```
+
+Add vertical lines for log2FoldChange thresholds, and one horizontal line for the p-value threshold:
+
+```{r}
+p2 <- p + geom_vline(xintercept=c(-0.6, 0.6), col="red") +
+	geom_hline(yintercept=-log10(0.05), col="red")
+```
+
+The significantly differentially expressed genes are the ones found in the upper-left and upper-right corners.
+
+We can add a column to the data frame to specify if they are UP- or DOWN- regulated (log2FoldChange respectively positive or negative).
+
+Let's create a new object with these new calculations. Note that we can use function **mutate()** from {dplyr} to **create or modify** columns
+
+```{r}
+de_fc <- de %>% mutate(log10pvalue=-log10(pvalue),
+                       diffexpressed=ifelse(log2FoldChange > 0.6 & pvalue < 0.05, "UP",
+                                         ifelse(log2FoldChange < -0.6 & pvalue < 0.05, "DOWN", "NO")))
+
+head(de_fc)
+```
+
+Re-plot but, this time, conditionally color the points using **diffexpressed** column:
+
+```{r}
+p <- ggplot(data=de_fc, aes(x=log2FoldChange, y=log10pvalue, col=diffexpressed)) +
+  geom_point() + 
+  theme_minimal()
+```
+
+Add vertical and horizontal lines, as we did before.
+
+```{r}
+p2 <- p + geom_vline(xintercept=c(-0.6, 0.6), col="red") +
+        geom_hline(yintercept=-log10(0.05), col="red")
+```
+
+Change point colors:
+
+```{r}
+p3 <- p2 + scale_color_manual(values=c(DOWN="blue", NO="grey50", UP="red"))
+
+p3
+```
+
+Now we will write down the name of genes beside the points... but **only selected genes**.
+
+Add to **de_fc** the new column "delabel", that will contain the name of genes differentially expressed (NA will be set, in case they are **NO**).
+
+```{r}
+de_fc <- mutate(de_fc, delabel=ifelse(diffexpressed=="NO", NA, gene_symbol))
+```
+
+```{r}
+ggplot(data=de_fc, aes(x=log2FoldChange, y=log10pvalue, col=diffexpressed, label=delabel)) + 
+	geom_point() + 
+	theme_minimal() +
+	geom_text()
+```
+
+Finally, we can organize the labels nicely using the "ggrepel" package and the geom_text_repel() function:
+
+```{r, fig.height=6, fig.width=6}
+# load library: either "tick it" in the Packages tab, or use the following:
+library(ggrepel)
+# plot adding up all layers we have seen so far
+ggplot(data=de_fc, aes(x=log2FoldChange, y=log10pvalue, col=diffexpressed, label=delabel)) +
+        geom_point() + 
+        theme_minimal(base_size = 16) +
+        geom_text_repel(show.legend = FALSE) +
+        scale_color_manual(values=c(DOWN="blue", NO="grey50", UP="red")) +
+        geom_vline(xintercept=c(-0.6, 0.6), col="red") +
+        geom_hline(yintercept=-log10(0.05), col="red") +
+        ggtitle(label="Volcano plot") +
+        theme(plot.title = element_text(hjust = 0.5, face = "bold"))
+```

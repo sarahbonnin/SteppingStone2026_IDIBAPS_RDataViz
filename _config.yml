@@ -1,0 +1,5 @@
+theme: jekyll-theme-dinky
+title: Stepping Stone 2025 - IDIBAPS - R for beginners: Introduction to data visualization with R and ggplot2: from data to publication-quality figures
+markdown: kramdown
+kramdown:
+  parse_block_html: true
